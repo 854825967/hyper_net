@@ -1,0 +1,19 @@
+digraph connection_life_time {
+    rankdir=LR;
+    node [shape = circle];
+    None -> Recving [label="recv packet"]
+    None -> Close[label="error"]
+    Recving -> RecvingWait [label="recv packet"]
+    Recving -> None [label="recv done"]
+    Recving -> Close [label="recv close"]
+    Recving -> Close [label="recv error"]
+    Recving -> WaitClose [label="error"]
+    RecvingWait -> RecvingWait [label="recv packet"]
+    RecvingWait -> Recving [label="recv done"]
+    RecvingWait -> Close [label="recv error"]
+    RecvingWait -> Close [label="recv close"]
+    RecvingWait -> WaitClose [label="error"]
+    WaitClose -> Close [label="recv done"]
+    WaitClose -> Close [label="recv close"]
+    WaitClose -> Close [label="recv error"]
+}
